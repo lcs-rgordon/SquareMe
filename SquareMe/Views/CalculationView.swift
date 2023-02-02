@@ -16,6 +16,7 @@ struct CalculationView: View {
     
     // MARK: Computed properties
     
+    // STEP TWO
     // Convert the input given into an optional Double
     var inputGivenAsOptionalDouble: Double? {
         
@@ -29,12 +30,36 @@ struct CalculationView: View {
         return inputGivenAsDouble
     }
     
+    // Take the input and format it for output
+    var formattedOutputValue: String {
+        
+        // STEP THREE
+        // See if we have a number to work with!
+        // Get a non-optional Double
+        guard let numberToSquare = inputGivenAsOptionalDouble else {
+            
+            return "Please enter a numeric value, such as: 5.0"
+        }
+        
+        // We do have a number to work with... so square it
+        let squaredNumber = numberToSquare * numberToSquare
+        
+        // STEP FOUR
+        // Return the formatted number
+        return squaredNumber.formatted(.number.precision(.fractionLength(3)))
+        
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
+                // STEP ONE: String
                 TextField("5.5", text: $inputGiven)
                     .font(.largeTitle)
                     .padding()
+                
+                Text(formattedOutputValue)
+                    .font(.largeTitle)
             }
             .navigationTitle("Square Me")
         }
